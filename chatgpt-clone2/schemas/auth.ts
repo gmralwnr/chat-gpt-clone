@@ -11,9 +11,9 @@ export const SignupSchema = z.object({
     password: z
         .string()
         .min(8, { message: "페스워드는 최소 1개 이상의 대문자를 포함해야 합니다." })
-        .regex(/[A-Z]/, {
-            message: "패스워드는 최소 1개 이상 대문자를 포함해야합니다"
-        })
+        // .regex(/[A-Z]/, {
+        //     message: "패스워드는 최소 1개 이상 대문자를 포함해야합니다"
+        // })
         .regex(/[a-z]/, {
             message: "패스워드는 최소 1개 이상 소문문자를 포함해야합니다"
         })
@@ -25,4 +25,13 @@ export const SignupSchema = z.object({
         }),
 
 
-})
+});
+
+export const LgoinSchema = z.object({
+    email: z.string().email({
+        message: "올바른 이메일 형식을 입력해주세요"
+    }),
+    password: z.string().min(1, {
+        message: "패스워드를 입력해주세요"
+    })
+});

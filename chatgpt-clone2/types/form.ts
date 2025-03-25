@@ -3,3 +3,8 @@ export type TSingUpFormError = {
     email?: string[];
     password?: string[];
 }
+
+export type TSloginFormError = {
+    email?: string[];
+    password?: string[];
+}
