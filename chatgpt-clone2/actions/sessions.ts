@@ -1,26 +1,26 @@
 'use server';
-import { createSecretKey } from "crypto";
-import { Session } from "inspector/promises";
+//import { createSecretKey } from "crypto";
 import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodeKey = new TextEncoder().encode(secretKey);
-const key = createSecretKey(Buffer.from(encodeKey));
+//const key = createSecretKey(Buffer.from(encodeKey));
 
 type SessionPayload = {
     id: string;
     name: string;
 }
 
+
 export const encrypt = async (payload: SessionPayload) => {
     return new SignJWT(payload)
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
         .setExpirationTime("1d")
-        //  .sign(encodeKey);
-        .sign(key)
+        .sign(encodeKey);
+    //.sign(key)
 }
 
 export const verify = async (session: string | undefined = "") => {
