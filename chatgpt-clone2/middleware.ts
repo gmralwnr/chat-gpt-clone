@@ -6,18 +6,21 @@ import { verify } from "./actions/sessions";
 //
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
-    const isPublicResponse = PUBLIC_ROUTES.includes(pathname);
+    const isPublicResponse = PUBLIC_ROUTES.includes(pathname); //public_routes 로그인없이도 접근 가능 하도록 하는 
     const cookieStore = await cookies()
 
     const cookie = cookieStore.get('session')?.value;
     const session = await verify(cookie);
 
     if (!isPublicResponse && !session) {
+        //로그인을 하지 않았는데 채팅 페이지에 접근 할 경우
+        console.log(isPublicResponse, ">>>>>>>>>>", !session, "    pathname : ", pathname)
         // 로그인이 안되었을경우 로그인으로 redirect
         return NextResponse.redirect(new URL(AUTH_ROUTES.LOGIN, request.nextUrl))
     }
 
     if (isPublicResponse && session) {
+        //로그인을 한 상태에서 로그인, 호원가입에 넘기지 않도록
         return NextResponse.redirect(new URL(BASE_URL, request.nextUrl))
 
     }

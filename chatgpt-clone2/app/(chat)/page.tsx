@@ -1,7 +1,7 @@
-import { Header } from "@/components/chat/Header";
+import { Chat } from "@/components/chat/Chat";
 
 export default function ChatPage() {
 
-    return <>chat gpt  </>
+    return <Chat />
 
 }
