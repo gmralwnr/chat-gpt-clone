@@ -7,16 +7,15 @@ type Props = {
 }
 
 
-
-
 export function Message({ name = "User", content = "", role, }: Props) {
     const isAssistant = role === "assistant"; //role 작성자 = > assistant chat gpt
     const avatarName = isAssistant ? "Chat GPT" : name;
-    return <div className="flex items-center gap-2 mb-5">
+    return <div className="flex items-start gap-2 mb-5">
+
         {/* 아바타 */}
         <Avatar>  {/* 어시스턴드 일경우에만 사진 노출 assistant */}
             <AvatarImage src={isAssistant
-                ? "logo4.png" : ""
+                ? "/logo100.png" : ""
             } alt="avatar" />
             <AvatarFallback> {avatarName[0]}</AvatarFallback>
         </Avatar>
