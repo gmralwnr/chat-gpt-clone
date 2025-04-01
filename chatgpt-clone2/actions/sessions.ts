@@ -24,6 +24,8 @@ export const encrypt = async (payload: SessionPayload) => {
 }
 
 export const verify = async (session: string | undefined = "") => {
+    console.log(session)
+
     try {
         const { payload } = await jwtVerify<SessionPayload>(session, encodeKey, {
             algorithms: ["HS256"]
@@ -62,6 +64,7 @@ export const deleteSession = async () => {
 
 //검증 함수
 export const verifySession = async () => {
+    console.log(">>>>>>>검증", verifySession)
     const cookieStore = await cookies();
     const cookie = cookieStore.get('session')?.value;
     const session = await verify(cookie);

@@ -21,7 +21,7 @@ export function MobileSelect() {
             </SelectTrigger>
             <SelectContent>
                 {MODELS.map((model) => (
-                    <SelectItem key={model} value={model}>{model}</SelectItem>
+                    <SelectItem key={model} value={model} disabled={currentModel === model}>{model}</SelectItem>
                 ))}
             </SelectContent>
         </Select>

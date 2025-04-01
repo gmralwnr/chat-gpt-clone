@@ -1,6 +1,7 @@
 'use client';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { useSheetStore } from "@/store/sheet";
 import { Ellipsis, Pencil, Trash } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -19,14 +20,21 @@ export function SideBarItem({ item }: Props) {
     const { id, href, icon, label } = item;
     const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const setOpen = useSheetStore((state) => state.setOpen);
+
     const handleMenu = () => {
         setIsMenuOpen((prev) => !prev);
     }
-    return <Link href={href} className={cn(
-        "flex items-center justify-between text-sm p-3 group hover:text-white hover:bg-white/10 rounded-lg",
-        isMenuOpen || pathname === href
-            ? "text-white bg-white/10"
-            : "text-zinc-400")}>
+    return <Link
+        scroll={false}
+        href={href}
+        className={cn(
+            "flex items-center justify-between text-sm p-3 group hover:text-white hover:bg-white/10 rounded-lg",
+            isMenuOpen || pathname === href
+                ? "text-white bg-white/10"
+                : "text-zinc-400")}
+        onClick={() => setOpen(false)}>
+
         {/* label 영역 */}
         < div className="flex items-center gap-2" >
             {icon} < div className="w-[180px] truncate" > {label}</div >
