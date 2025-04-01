@@ -8,7 +8,7 @@ export default function ChatLayout({ children }
         {/* 사이드바 영역 */}
         <div className="hidden md:block w-[300px]"><SideBar /></div>
         {/* Header +chat 영역 */}
-        <div className="flex flex-col flex-1 h-full overflow-y-auto">
+        <div className="flex flex-col flex-1 h-full overflow-y-auto ">
             <Header />
             {children}
         </div>

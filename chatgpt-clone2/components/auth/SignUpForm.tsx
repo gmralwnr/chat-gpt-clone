@@ -28,7 +28,7 @@ export function SignUpForm() {
         }
     }, [error]);
     return (
-        <FormCard title="회원가입" footer={{ label: "이미 계정이 있으신가요", href: "/login" }}>
+        <FormCard title="회원가입" footer={{ label: "이미 계정이 있으신가요", href: "/signup" }}>
 
             {/*action 실행  */}
             <form action={action} className="space-y-6">

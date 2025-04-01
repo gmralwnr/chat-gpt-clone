@@ -2,7 +2,7 @@ export const BASE_URL = "/";
 
 export const AUTH_ROUTES = {
     LOGIN: '/login',
-    SIGN_UP: '/singup'
+    SIGN_UP: '/signup'
 
 }
 
