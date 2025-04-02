@@ -4,8 +4,8 @@
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.converstaion": {
-      "name": "converstaion",
+    "public.conversation": {
+      "name": "conversation",
       "schema": "",
       "columns": {
         "id": {
@@ -44,9 +44,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "converstaion_userId_user_id_fk": {
-          "name": "converstaion_userId_user_id_fk",
-          "tableFrom": "converstaion",
+        "conversation_userId_user_id_fk": {
+          "name": "conversation_userId_user_id_fk",
+          "tableFrom": "conversation",
           "tableTo": "user",
           "columnsFrom": [
             "userId"
@@ -110,10 +110,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "message_conversationId_converstaion_id_fk": {
-          "name": "message_conversationId_converstaion_id_fk",
+        "message_conversationId_conversation_id_fk": {
+          "name": "message_conversationId_conversation_id_fk",
           "tableFrom": "message",
-          "tableTo": "converstaion",
+          "tableTo": "conversation",
           "columnsFrom": [
             "conversationId"
           ],

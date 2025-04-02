@@ -9,7 +9,7 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 
-export function MobileMenu() {
+export function MobileMenu({ children }: { children: React.ReactNode }) {
     const open = useSheetStore((state) => state.open);
     const setOpen = useSheetStore((state) => state.setOpen);
 
@@ -18,7 +18,8 @@ export function MobileMenu() {
         >
             <SheetTrigger asChild><Menu /></SheetTrigger>
             <SheetContent side="left" className="p-0">
-                <SideBar />
+                {/* <SideBar /> */}
+                {children}
                 <VisuallyHidden>
                     {/* 제목 추가 */}
                     <DialogTitle></DialogTitle> 제목 추가

@@ -3,35 +3,36 @@ import { Logo } from "./Logo";
 import { MessageSquare, Plus } from "lucide-react"
 import { SideBarItem } from "./SideBarItem";
 import { LogoutButton } from "./LogoutButton";
+import { getConversationsByUser } from "@/data/user";
+import { ReactNode } from "react";
 
-const DUMY_ITEMS = [
-    {
-        id: "new",
-        label: "새로운 대화",
-        icon: <Plus />,
-        href: BASE_URL
-    },
-    {
-        id: "1",
-        label: "새로운 긴 대화 예시입니다. 새로운 건 대화 예시입니다다",
-        icon: <MessageSquare />,
-        href: `${CHAT_ROUTES.COWVERSATIONS}/1`
-    },
-    {
-        id: "2",
-        label: "일반 대화 예시입니다",
-        icon: <MessageSquare />,
-        href: `${CHAT_ROUTES.COWVERSATIONS}/2`
-    },
-]
+const NEW_SIDEBAR_ITEM = {
+    id: "new",
+    label: "새로운 대화",
+    icon: <Plus />,
+    href: BASE_URL
+}
 
-export function SideBar() {
+
+
+export async function SideBar() {
+
+    const conversations = await getConversationsByUser(); //url 정보가 없기 때문에
+    const formattedItems = [
+        NEW_SIDEBAR_ITEM,
+        ...conversations.map((conversations) => ({
+            id: conversations.id,
+            href: `${CHAT_ROUTES.CONVERSATIONS}/${conversations.id}`,
+            icon: <MessageSquare />,
+            label: conversations.name || "",
+        }))
+    ]
     return <nav className="h-full p-3 bg-black flex flex-col text-white">
         {/* 로고 영역 +메뉴 아이템 */}
         <div className="flex-1 overflow-y-auto">
             <Logo></Logo>
             <div className="flex flex-col gap-2 mt-10">
-                {DUMY_ITEMS.map((item) => (
+                {formattedItems.map((item) => (
                     <SideBarItem key={item.id} item={item} />
                 ))}
             </div>
