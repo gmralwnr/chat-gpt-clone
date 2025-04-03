@@ -12,6 +12,7 @@ import { conversation } from "@/db/schema";
 import { useParams, useRouter } from "next/navigation";
 import { addMessages, createConversation } from "@/actions/conversation";
 import { CHAT_ROUTES } from "@/constants/routes";
+import { useUserStore } from "@/store/user";
 //
 type Props = {
     initialMessages?: TMessage[];
@@ -19,6 +20,8 @@ type Props = {
 export function Chat({ initialMessages }: Props) {
     //***chatGpt 연결 => key 받기 =>app/api/chat/route.ts => openAi api 연동 후 아래 useChat import
     //message :  사용자 챗봇 배열 담겨져있음
+
+    const user = useUserStore((state) => state.user);
 
     const params = useParams<{ conversationId: string }>();
     const router = useRouter();
@@ -59,13 +62,14 @@ export function Chat({ initialMessages }: Props) {
     }, [messages])
     return <div className="flex flex-col w-[80%] h-full mx-auto">
         {/* 채팅영역  */}
-        <div className="flex-1"> {messages.length === 0 ?
+        <div className="flex-1">  {!params.conversationId && messages.length === 0 ?
             (<Empty />)
             : (<>
+                {/* 새로고침 할 경우 로고가 보이고 사라짐 => 그부분을 막으려고 함  !params.conversationId 번호가 없을 때 노출 하도록 */}
                 {messages.map((message) => (
                     <Message
                         key={message.id}
-                        name={'user'}
+                        name={user.name}
                         content={message.content}
                         role={message.role}
                     />

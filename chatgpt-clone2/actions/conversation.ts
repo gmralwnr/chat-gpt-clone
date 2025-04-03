@@ -4,6 +4,7 @@ import { verifySession } from "./sessions"
 import db from "@/db";
 import { conversation, message } from "@/db/schema";
 import { revalidatePath } from "next/cache";
+import { eq } from "drizzle-orm";
 
 
 export const addMessages = async (
@@ -39,4 +40,13 @@ export const createConversation = async (name: string) => {
     revalidatePath(BASE_URL);
 
     return result[0] //리터링 값은 배열이기 때문에 0번쨰 값
+}
+
+export const updateConversation = async (id: string, name: string) => {
+    await db
+        .update(conversation)
+        .set({ name, updatedAt: new Date() })
+        .where(eq(conversation.id, id))
+
+    revalidatePath(BASE_URL) //ui 반영하기 위해 revalidatePath
 }
