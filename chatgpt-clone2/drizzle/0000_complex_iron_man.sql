@@ -1,4 +1,4 @@
-CREATE TABLE "converstaion" (
+CREATE TABLE "conversation" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text,
 	"userId" uuid NOT NULL,
@@ -25,5 +25,5 @@ CREATE TABLE "user" (
 	CONSTRAINT "user_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
-ALTER TABLE "converstaion" ADD CONSTRAINT "converstaion_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "message" ADD CONSTRAINT "message_conversationId_converstaion_id_fk" FOREIGN KEY ("conversationId") REFERENCES "public"."converstaion"("id") ON DELETE cascade ON UPDATE no action;
+ALTER TABLE "conversation" ADD CONSTRAINT "conversation_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "message" ADD CONSTRAINT "message_conversationId_conversation_id_fk" FOREIGN KEY ("conversationId") REFERENCES "public"."conversation"("id") ON DELETE cascade ON UPDATE no action;

@@ -6,8 +6,16 @@ type Props = {
     role: string;
 }
 
+interface test2 {
+    name?: string,
+    content: string,
+    role: string
+}
 
-export function Message({ name = "User", content = "", role, }: Props) {
+export function Message(
+    { name = "User", content = "", role, }: Props
+    //props: test2
+) {
     const isAssistant = role === "assistant"; //role 작성자 = > assistant chat gpt
     const avatarName = isAssistant ? "Chat GPT" : name;
     return <div className="flex items-start gap-2 mb-5">
@@ -17,7 +25,7 @@ export function Message({ name = "User", content = "", role, }: Props) {
             <AvatarImage src={isAssistant
                 ? "/logo100.png" : ""
             } alt="avatar" />
-            <AvatarFallback> {avatarName[0]}</AvatarFallback>
+            <AvatarFallback> {avatarName ? avatarName[0] : ""}</AvatarFallback>
         </Avatar>
 
         {/* 이름 + 내용 */}
