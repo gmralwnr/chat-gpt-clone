@@ -4,7 +4,6 @@ import { MessageSquare, Plus } from "lucide-react"
 import { SideBarItem } from "./SideBarItem";
 import { LogoutButton } from "./LogoutButton";
 import { getConversationsByUser } from "@/data/user";
-import { ReactNode } from "react";
 
 const NEW_SIDEBAR_ITEM = {
     id: "new",
