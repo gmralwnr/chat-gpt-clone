@@ -3,7 +3,6 @@ import { Menu } from "lucide-react";
 import {
     Sheet, SheetContent, SheetTrigger,
 } from "../ui/sheet";
-import { SideBar } from "./SideBar";
 import { useSheetStore } from "@/store/sheet";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";

@@ -1,6 +1,6 @@
 'use client';
 import { deleteConversation, updateConversation } from "@/actions/conversation";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { useModalStore } from "@/store/modal";
 import { useSheetStore } from "@/store/sheet";
@@ -10,7 +10,6 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, ReactNode, useEffect, useRef, useState, MouseEvent } from "react";
 import toast from "react-hot-toast";
 import { ModalFooter } from "../modal/ModalFooter";
-import { conversation } from "@/db/schema";
 import { BASE_URL } from "@/constants/routes";
 
 type Props = {
