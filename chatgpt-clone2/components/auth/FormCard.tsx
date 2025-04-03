@@ -1,5 +1,5 @@
 import Link from "next/link"; // ✅ Next.js의 Link 컴포넌트 사용
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
 type Props = {
     title: string;
     footer: { label: string; href: string };

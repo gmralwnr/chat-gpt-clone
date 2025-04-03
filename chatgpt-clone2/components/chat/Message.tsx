@@ -6,11 +6,6 @@ type Props = {
     role: string;
 }
 
-interface test2 {
-    name?: string,
-    content: string,
-    role: string
-}
 
 export function Message(
     { name = "User", content = "", role, }: Props

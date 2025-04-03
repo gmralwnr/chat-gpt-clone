@@ -1,14 +1,12 @@
 'use client'
-import { useEffect, useRef, useState, KeyboardEvent } from "react";
+import { useEffect, useRef, KeyboardEvent } from "react";
 import { useChat, Message as TMessage } from "ai/react";
 import { AutoResizingTextarea } from "./AutoResizingTextarea";
 import { Empty } from "./Empty";
 import { Message } from "./Message";
 import { Button } from "../ui/button";
 import { ArrowUp } from "lucide-react";
-import { DUMMY_LONG_TEXT } from "@/constants/dummy";
 import { useModelStore } from "@/store/model";
-import { conversation } from "@/db/schema";
 import { useParams, useRouter } from "next/navigation";
 import { addMessages, createConversation } from "@/actions/conversation";
 import { CHAT_ROUTES } from "@/constants/routes";
