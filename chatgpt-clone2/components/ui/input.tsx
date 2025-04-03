@@ -27,4 +27,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     )
   });
 
+// 🔹 displayName 추가
+Input.displayName = "Input";
 export { Input }
