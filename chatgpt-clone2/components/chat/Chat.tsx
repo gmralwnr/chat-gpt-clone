@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, KeyboardEvent } from "react";
 import { useChat, Message as TMessage } from "ai/react";
 import { AutoResizingTextarea } from "./AutoResizingTextarea";
 import { Empty } from "./Empty";
@@ -60,6 +60,16 @@ export function Chat({ initialMessages }: Props) {
             scrollRef.current.scrollIntoView({ behavior: "smooth" }) //스무스옵션
         }
     }, [messages])
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            //e.preventDefault(); //기본 줄바꿈 방지
+            if (input.trim() !== "") {
+                handleSubmit();
+
+            }
+        }
+    }
     return <div className="flex flex-col w-[80%] h-full mx-auto">
         {/* 채팅영역  */}
         <div className="flex-1">  {!params.conversationId && messages.length === 0 ?
@@ -81,7 +91,8 @@ export function Chat({ initialMessages }: Props) {
             <form className="flex items-center justify-center gap-4" onSubmit={(e) => handleSubmit(e, { data: { mdoel } })}>
                 <AutoResizingTextarea
                     value={input}
-                    onChange={handleInputChange} />
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown} />
                 <Button type="submit" size="icon">
                     <ArrowUp />
                 </Button>
