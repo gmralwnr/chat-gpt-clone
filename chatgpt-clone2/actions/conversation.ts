@@ -6,7 +6,7 @@ import { conversation, message } from "@/db/schema";
 import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
 
-
+//대화내용 insert
 export const addMessages = async (
     conversationId: string,  //어떤 사람과 대화를 나누었는지 id
     userContent: string, //유저의 메세지
@@ -28,6 +28,8 @@ export const addMessages = async (
     revalidatePath(`${CHAT_ROUTES.CONVERSATIONS}/${conversationId}`);
 
 }
+
+//새로운 질문 추가 
 export const createConversation = async (name: string) => {
     const session = await verifySession();
 
@@ -42,6 +44,7 @@ export const createConversation = async (name: string) => {
     return result[0] //리터링 값은 배열이기 때문에 0번쨰 값
 }
 
+//사이드바 title 수정 
 export const updateConversation = async (id: string, name: string) => {
     await db
         .update(conversation)
@@ -49,4 +52,11 @@ export const updateConversation = async (id: string, name: string) => {
         .where(eq(conversation.id, id))
 
     revalidatePath(BASE_URL) //ui 반영하기 위해 revalidatePath
+}
+
+
+export const deleteConversation = async (id: string) => {
+    await db.delete(conversation).where(eq(conversation.id, id))
+
+    revalidatePath(BASE_URL)
 }

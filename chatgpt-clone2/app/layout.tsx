@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import { Modal } from "@/components/modal/Modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Modal />
         <Toaster />  {/*루트 발생하도록 루트/layout에 값 지정 에러가 상단에 노출 되도록 하는 라이브러리 */}
         {children}
       </body>

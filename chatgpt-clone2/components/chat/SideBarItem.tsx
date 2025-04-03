@@ -1,13 +1,17 @@
 'use client';
-import { updateConversation } from "@/actions/conversation";
+import { deleteConversation, updateConversation } from "@/actions/conversation";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { useModalStore } from "@/store/modal";
 import { useSheetStore } from "@/store/sheet";
 import { Ellipsis, Pencil, Trash } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ChangeEvent, ReactNode, useEffect, useRef, useState } from "react";
+import { useParams, usePathname, useRouter } from "next/navigation";
+import { ChangeEvent, ReactNode, useEffect, useRef, useState, MouseEvent } from "react";
 import toast from "react-hot-toast";
+import { ModalFooter } from "../modal/ModalFooter";
+import { conversation } from "@/db/schema";
+import { BASE_URL } from "@/constants/routes";
 
 type Props = {
     item: {
@@ -26,6 +30,18 @@ export function SideBarItem({ item }: Props) {
     //수정인지 아닌지 확인하는 mode
     const [isEditMode, setIsEditMode] = useState(false);
     const [value, setValue] = useState(item.label);
+    // const { openModal, closeModal } = useModalStore((state) => ({
+    //     openModal: state.openModal,
+    //     closeModal: state.closeModal,
+    // }));
+
+    //modal 띄우기 
+    const openModal = useModalStore((state) => state.openModal)
+    const closeModal = useModalStore((state) => state.closeModal)
+    //현재 페이지에서 삭제 했을 경우  BAS_URL 이동
+    const params = useParams<{ conversationId: string }>();
+    const router = useRouter();
+
     //edit 수정할 때 포커스 맞추기
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -73,6 +89,35 @@ export function SideBarItem({ item }: Props) {
             await handleBlur();
         }
     }
+
+    const handleDelete = async () => {
+        try {
+            //삭제
+            await deleteConversation(id);
+            toast.success("삭제했습니다");
+
+            if (params.conversationId === id) {
+                router.push(BASE_URL);
+            }
+            closeModal();
+        } catch (error) {
+            console.error(error);
+            toast.error("삭제에 실패했습니다")
+        }
+    };
+
+
+    //삭제 이벤트
+    const clickDelete = (event: MouseEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        console.log(openModal)
+        //모달 로직
+        openModal({
+            title: "정말 삭제하시겠습니까?",
+            description: "삭제 후 데이터는 복구가 어렵습니다",
+            footer: <ModalFooter onCancel={closeModal} onConfirm={handleDelete} />
+        });
+    }
     return <Link
         scroll={false}
         href={href}
@@ -107,7 +152,7 @@ export function SideBarItem({ item }: Props) {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuItem className="gap-2" onClick={clickEdit}><Pencil size={18} />Edit</DropdownMenuItem>
-                        <DropdownMenuItem className="gap-2"><Trash size={18} />Delete</DropdownMenuItem>
+                        <DropdownMenuItem className="gap-2" onClick={clickDelete}><Trash size={18} />Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
 
