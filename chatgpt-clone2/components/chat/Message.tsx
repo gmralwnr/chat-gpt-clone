@@ -18,7 +18,7 @@ export function Message(
         {/* 아바타 */}
         <Avatar>  {/* 어시스턴드 일경우에만 사진 노출 assistant */}
             <AvatarImage src={isAssistant
-                ? "/logo100.png" : ""
+                ? "/logo4.png" : ""
             } alt="avatar" />
             <AvatarFallback> {avatarName ? avatarName[0] : ""}</AvatarFallback>
         </Avatar>
